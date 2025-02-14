@@ -1,50 +1,33 @@
 meta:
-  Type: Mapped
-  ID: SUBJ
+  Type: mapped
+  ID: dm
   Description: Subject Data Mapping 
   Priority: 1
 spec: 
-  Raw_SUBJ:
-    studyid:
+  dm:
+    SITEID:
       type: character
-    invid:
+    USUBJID:
       type: character
-    country:
+    ARM:
       type: character
-    subjid:
+    RFSTDTC:
       type: character
-    subject_nsv:
-      type: character
-    enrollyn:
-      type: character
-    timeonstudy:
-      type: integer
-  Raw_STUDCOMP:
-    subjid:
-      type: character
-    compyn:
+    RFENDTC:
       type: character
 steps:
-  - output: Temp_SUBJ
-    name: left_join
-    params:
-      x: Raw_SUBJ
-      "y": Raw_STUDCOMP
-      by: subjid
-  - output: Mapped_SUBJ
+  # Calculate participant-level time on study and remove participants who failed screening.
+  - output: mapped_dm
     name: RunQuery
     params:
-      df: Temp_SUBJ
+      df: dm
       strQuery: |
         SELECT *,
-        CASE
-          WHEN compyn == 'Y' THEN 'Completed'
-          WHEN compyn == 'N' THEN 'Discontinued'
-          WHEN enrollyn == 'Y' THEN 'Active'
-          WHEN enrollyn == 'N' THEN 'Screen Failure'
-          WHEN enrollyn == '' THEN 'In Screening'
-          ELSE 'Unknown'
-        END as Status
+          DATEDIFF(
+            'day',
+            CAST(RFSTDTC as date),
+            CAST(RFENDTC as date)
+          ) AS timeonstudy
         FROM df
-        WHERE enrollyn == 'Y'
+        WHERE ARM != 'Screen Failure'
 

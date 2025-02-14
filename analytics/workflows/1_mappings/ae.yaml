@@ -1,18 +1,21 @@
 meta:
-  Type: Mapped
-  ID: AE
+  Type: mapped
+  ID: ae
   Description: Adverse Event Data Mapping 
   Priority: 1
 spec: 
- Raw_AE:
-    subjid:
+  ae:
+    USUBJID:
       type: character
-    aeser:
+    AESER:
       type: character
 steps:
-  - output: Mapped_AE
-    name: =
+  # Apply data mapping.
+  - output: mapped_ae
+    name: RunQuery
     params:
-      lhs: Mapped_AE
-      rhs: Raw_AE
+      df: ae
+      strQuery: |
+        SELECT *
+        FROM df
 

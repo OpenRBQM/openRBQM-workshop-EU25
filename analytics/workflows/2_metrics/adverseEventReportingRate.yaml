@@ -1,6 +1,6 @@
 meta:
   Type: Analysis
-  ID: kri0001
+  ID: adverseEventReportingRate
   GroupLevel: Site
   Abbreviation: AE
   Metric: Adverse Event Rate
@@ -12,16 +12,16 @@ meta:
   Threshold: -2,-1,2,3
   nMinDenominator: 30
 spec:
-  Mapped_AE:
-    subjid:
+  mapped_ae:
+    USUBJID:
       type: character
-  Mapped_SUBJ:
-    subjid:
+  mapped_dm:
+    SUBJID:
       type: character
-    invid:
+    SITEID:
       type: character
     timeonstudy:
-      type: integer
+      type: numeric
 steps:
   - output: vThreshold
     name: ParseThreshold
@@ -30,11 +30,11 @@ steps:
   - output: Analysis_Input
     name: Input_Rate
     params:
-      dfSubjects: Mapped_SUBJ
-      dfNumerator: Mapped_AE
-      dfDenominator: Mapped_SUBJ
-      strSubjectCol: subjid
-      strGroupCol: invid
+      dfSubjects: mapped_dm
+      dfNumerator: mapped_ae
+      dfDenominator: mapped_dm
+      strSubjectCol: USUBJID
+      strGroupCol: SITEID
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
