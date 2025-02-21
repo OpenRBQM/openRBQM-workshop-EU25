@@ -55,10 +55,10 @@ steps:
       dfGroups: Reporting_Groups
       dfBounds: Reporting_Bounds
       dfMetrics: Reporting_Metrics_Site
-  - output: lReport
-    name: Report_KRI
-    params:
-      lCharts: lCharts_Site
-      dfResults: Reporting_Results_Site
-      dfGroups: Reporting_Groups
-      dfMetrics: Reporting_Metrics_Site
+        #- output: lReport
+        #  name: Report_KRI
+        #  params:
+        #    lCharts: lCharts_Site
+        #    dfResults: Reporting_Results_Site
+        #    dfGroups: Reporting_Groups
+        #    dfMetrics: Reporting_Metrics_Site

@@ -5,8 +5,16 @@ library(gsm)
 # 0. Input data
 # ----
 
+# TODO:
+# - add study-level metadata
+# - add `InvestigatorLastName` to site-level metadata
+# - add abnormal lab rate: LBNRIND == 'ABNORMAL'
+# - add study discontinuation rate: DSDECOD != 'COMPLETED' where DSDECOD == 'DISPOSITION EVENT'
+# - tweak data to introduce greater outliers
 lRawData <- list(
     dm = readRDS('data/dm.rds'),
+    ds = readRDS('data/ds.rds'),
+    lb = readRDS('data/lb.rds'),
     ae = readRDS('data/ae.rds')
 )
 
@@ -62,7 +70,8 @@ lModuleWorkflows <- gsm::MakeWorkflowList(
 )
 
 # TODO: figure out why this is breaking
-RunWorkflows(
+load_all('~/dev/gsm')
+see <- RunWorkflows(
     lModuleWorkflows,
     lReportingData
 )

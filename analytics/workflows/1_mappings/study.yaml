@@ -1,0 +1,30 @@
+meta:
+  Type: mapped
+  ID: study
+  Description: Study Data Mapping 
+  Priority: 2
+spec:
+  mapped_dm:
+    SITEID:
+      type: character
+    SUBJID:
+      type: character
+    timeonstudy:
+      type: numeric
+steps:
+  - output: ParticipantCounts
+    name: RunQuery
+    params:
+      df: mapped_dm
+      strQuery: |
+        SELECT
+          STUDYID as GroupID,
+          COUNT(DISTINCT SUBJID) as ParticipantCount
+        FROM df
+        GROUP BY STUDYID
+  - output: mapped_site
+    name: MakeLongMeta
+    params:
+      data: ParticipantCounts
+      strGroupLevel: "Study"
+
