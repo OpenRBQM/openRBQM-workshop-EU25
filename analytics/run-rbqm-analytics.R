@@ -55,8 +55,8 @@ lReportingData <- gsm::RunWorkflows(
     c(
         lMappedData,
         list(
-            lAnalyzed = lAnalysisData,
-            lWorkflows = lAnalysisWorkflows
+            lAnalysisWorkflows = lAnalysisWorkflows,
+            lAnalysisData = lAnalysisData
         )
     )
 )

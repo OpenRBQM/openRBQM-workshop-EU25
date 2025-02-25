@@ -1,6 +1,7 @@
 meta:
   Type: Analysis
   ID: labAbnormalityRate
+  Description: Lab Abnormality Rate KRI
   GroupLevel: Site
   Abbreviation: LB
   Metric: Lab Abnormality Rate

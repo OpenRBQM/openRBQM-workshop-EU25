@@ -1,7 +1,7 @@
 meta:
   Type: Reporting
   ID: Groups
-  Description: Reporting Groups Data
+  Description: Study and Site Metadata
   Priority: 1
 spec:
   Mapped_STUDY:
@@ -11,6 +11,7 @@ spec:
     _all:
       required:  true
 steps:
+  # Combine study and site metadata.
   - output: Reporting_Groups
     name: bind_rows
     params:

@@ -1,6 +1,7 @@
 meta:
   Type: Analysis
   ID: adverseEventReportingRate
+  Description: Adverse Event Rate KRI
   GroupLevel: Site
   Abbreviation: AE
   Metric: Adverse Event Rate

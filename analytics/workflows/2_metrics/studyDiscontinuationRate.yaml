@@ -1,6 +1,7 @@
 meta:
   Type: Analysis
   ID: studyDiscontinuationRate
+  Description: Study Discontinuation Rate KRI
   GroupLevel: Site
   Abbreviation: SDSC
   Metric: Study Discontinuation Rate
