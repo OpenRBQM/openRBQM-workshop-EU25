@@ -1,10 +1,10 @@
 meta:
-  Type: mapped
-  ID: site
-  Description: Site Data Mapping 
+  Type: Mapped
+  ID: SITE
+  Description: Site Metadata
   Priority: 2
 spec:
-  mapped_dm:
+  Mapped_DM:
     SITEID:
       type: character
     SUBJID:
@@ -12,17 +12,21 @@ spec:
     timeonstudy:
       type: numeric
 steps:
+  # Count the number of participants at each site.
   - output: ParticipantCounts
     name: RunQuery
     params:
-      df: mapped_dm
+      df: Mapped_DM
       strQuery: |
         SELECT
           SITEID as GroupID,
+          'Site ' || SITEID as InvestigatorLastName,
           COUNT(DISTINCT SUBJID) as ParticipantCount
         FROM df
         GROUP BY SITEID
-  - output: mapped_site
+
+  # Transpose site metadata to one row per site per attribute.
+  - output: Mapped_SITE
     name: MakeLongMeta
     params:
       data: ParticipantCounts

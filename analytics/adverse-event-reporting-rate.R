@@ -5,17 +5,42 @@ library(gsm)
 # 0. Input data
 # ----
 
+#lConfig = list(
+#    StudyID = 'CDISCPILOT01',
+#    LoadData = function(lWorkflow, lConfig, lData = NULL) {
+#        readRDS(
+#            file.path(
+#                'data',
+#                lWorkflow$Type,
+#                paste0(
+#                    lWorkflow$ID,
+#                    '.rds'
+#                )
+#            )
+#        )
+#    },
+#    SaveData = function(lWorkflow, lConfig) {
+#        saveRDS(
+#            lWorkflow$lResult,
+#            file.path(
+#                'data',
+#                lWorkflow$Type,
+#                paste0(
+#                    lWorkflow$ID,
+#                    '.rds'
+#                )
+#            )
+#        )
+#    }
+#)
+
 # TODO:
-# - add study-level metadata
-# - add `InvestigatorLastName` to site-level metadata
-# - add abnormal lab rate: LBNRIND == 'ABNORMAL'
-# - add study discontinuation rate: DSDECOD != 'COMPLETED' where DSDECOD == 'DISPOSITION EVENT'
 # - tweak data to introduce greater outliers
 lRawData <- list(
-    dm = readRDS('data/dm.rds'),
-    ds = readRDS('data/ds.rds'),
-    lb = readRDS('data/lb.rds'),
-    ae = readRDS('data/ae.rds')
+    dm = readRDS('data/0_raw/dm.rds'),
+    ds = readRDS('data/0_raw/ds.rds'),
+    lb = readRDS('data/0_raw/lb.rds'),
+    ae = readRDS('data/0_raw/ae.rds')
 )
 
 # 1. Mapped data
@@ -29,6 +54,18 @@ lMappingWorkflows <- gsm::MakeWorkflowList(
 lMappedData <- gsm::RunWorkflows(
     lMappingWorkflows,
     lRawData
+) %T>% iwalk(
+    ~ saveRDS(
+        .x,
+        file.path(
+            'data',
+            'Mapped',
+            paste0(
+                .y,
+                '.rds'
+            )
+        )
+    )
 )
 
 # 2. Analysis Data
@@ -42,6 +79,18 @@ lAnalysisWorkflows <- gsm::MakeWorkflowList(
 lAnalysisData <- gsm::RunWorkflows(
     lAnalysisWorkflows,
     lMappedData
+) %T>% iwalk(
+    ~ saveRDS(
+        .x,
+        file.path(
+            'data',
+            'Analysis',
+            paste0(
+                .y,
+                '.rds'
+            )
+        )
+    )
 )
 
 # 3. Reporting data
@@ -54,10 +103,24 @@ lReportingWorkflows <- gsm::MakeWorkflowList(
 
 lReportingData <- gsm::RunWorkflows(
     lReportingWorkflows,
-    list(
-        lAnalyzed = lAnalysisData,
-        lWorkflows = lAnalysisWorkflows,
-        mapped_site = lMappedData$mapped_site
+    c(
+        lMappedData,
+        list(
+            lAnalyzed = lAnalysisData,
+            lWorkflows = lAnalysisWorkflows
+        )
+    )
+) %T>% iwalk(
+    ~ saveRDS(
+        .x,
+        file.path(
+            'data',
+            'Reporting',
+            paste0(
+                .y,
+                '.rds'
+            )
+        )
     )
 )
 
@@ -69,15 +132,7 @@ lModuleWorkflows <- gsm::MakeWorkflowList(
     strPackage = NULL
 )
 
-# TODO: figure out why this is breaking
-load_all('~/dev/gsm')
-see <- RunWorkflows(
+RunWorkflows(
     lModuleWorkflows,
     lReportingData
-)
-Widget_ScatterPlot(
-    lReportingData$Reporting_Results,
-    as.list(lReportingData$Reporting_Metrics),
-    lReportingData$Reporting_Groups,
-    lReportingData$Reporting_Bounds
 )

@@ -1,7 +1,7 @@
 meta:
-  Type: mapped
-  ID: ae
-  Description: Adverse Event Data Mapping 
+  Type: Mapped
+  ID: AE
+  Description: Adverse Events 
   Priority: 1
 spec: 
   ae:
@@ -10,7 +10,6 @@ spec:
     AESER:
       type: character
 steps:
-  # Apply data mapping.
   - output: mapped_ae
     name: RunQuery
     params:

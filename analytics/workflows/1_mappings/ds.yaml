@@ -1,0 +1,21 @@
+meta:
+  Type: Mapped
+  ID: DS
+  Description: Disposition
+  Priority: 1
+spec: 
+  ds:
+    USUBJID:
+      type: character
+    DSDECOD:
+      type: character
+steps:
+  - output: mapped_ds
+    name: RunQuery
+    params:
+      df: ds
+      strQuery: |
+        SELECT *
+        FROM df
+        WHERE DSCAT = 'DISPOSITION EVENT'
+

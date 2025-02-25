@@ -1,7 +1,7 @@
 meta:
-  Type: mapped
-  ID: dm
-  Description: Subject Data Mapping 
+  Type: Mapped
+  ID: DM
+  Description: Demographics 
   Priority: 1
 spec: 
   dm:

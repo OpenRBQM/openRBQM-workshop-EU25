@@ -1,0 +1,21 @@
+meta:
+  Type: Mapped
+  ID: LB
+  Description: Labs
+  Priority: 1
+spec: 
+  lb:
+    USUBJID:
+      type: character
+    LBNRIND:
+      type: character
+steps:
+  - output: mapped_lb
+    name: RunQuery
+    params:
+      df: lb
+      strQuery: |
+        SELECT *
+        FROM df
+        WHERE LBNRIND != ''
+

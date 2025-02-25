@@ -4,12 +4,16 @@ meta:
   Description: Reporting Groups Data
   Priority: 1
 spec:
-  mapped_site:
+  Mapped_STUDY:
+    _all:
+      required:  true
+  Mapped_SITE:
     _all:
       required:  true
 steps:
   - output: Reporting_Groups
     name: bind_rows
     params:
-      Site: mapped_site
+      Study: Mapped_STUDY
+      Site: Mapped_SITE
 

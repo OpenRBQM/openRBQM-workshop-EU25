@@ -12,10 +12,10 @@ meta:
   Threshold: -2,-1,2,3
   nMinDenominator: 30
 spec:
-  mapped_ae:
+  Mapped_AE:
     USUBJID:
       type: character
-  mapped_dm:
+  Mapped_DM:
     SUBJID:
       type: character
     SITEID:
@@ -30,9 +30,9 @@ steps:
   - output: Analysis_Input
     name: Input_Rate
     params:
-      dfSubjects: mapped_dm
-      dfNumerator: mapped_ae
-      dfDenominator: mapped_dm
+      dfSubjects: Mapped_DM
+      dfNumerator: Mapped_AE
+      dfDenominator: Mapped_DM
       strSubjectCol: USUBJID
       strGroupCol: SITEID
       strGroupLevel: GroupLevel

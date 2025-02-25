@@ -1,6 +1,6 @@
 meta:
   Type: Report
-  ID: report_kri_site
+  ID: KRI_Summary_by_Site
   Output: html
   Name: Site-Level Key Risk Indicator Report
   Description: A report summarizing key risk indicators at the site level
@@ -55,10 +55,11 @@ steps:
       dfGroups: Reporting_Groups
       dfBounds: Reporting_Bounds
       dfMetrics: Reporting_Metrics_Site
-        #- output: lReport
-        #  name: Report_KRI
-        #  params:
-        #    lCharts: lCharts_Site
-        #    dfResults: Reporting_Results_Site
-        #    dfGroups: Reporting_Groups
-        #    dfMetrics: Reporting_Metrics_Site
+  - output: lReport
+    name: Report_KRI
+    params:
+      lCharts: lCharts_Site
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics_Site
+
