@@ -1,3 +1,8 @@
+# TODO:
+# - tweak data to introduce greater outliers
+# - add dedicated load/save functions
+# - add explanatory comments to script and to workflows
+
 library(purrr)
 library(dplyr)
 library(gsm)
@@ -34,8 +39,6 @@ library(gsm)
 #    }
 #)
 
-# TODO:
-# - tweak data to introduce greater outliers
 lRawData <- list(
     dm = readRDS('data/0_raw/dm.rds'),
     ds = readRDS('data/0_raw/ds.rds'),
