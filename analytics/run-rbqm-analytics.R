@@ -1,6 +1,5 @@
 # TODO:
 # - tweak data to introduce greater outliers
-# - add dedicated load/save functions
 # - add explanatory comments to script and to workflows
 
 library(purrr)
@@ -10,40 +9,11 @@ library(gsm)
 # 0. Input data
 # ----
 
-#lConfig = list(
-#    StudyID = 'CDISCPILOT01',
-#    LoadData = function(lWorkflow, lConfig, lData = NULL) {
-#        readRDS(
-#            file.path(
-#                'data',
-#                lWorkflow$Type,
-#                paste0(
-#                    lWorkflow$ID,
-#                    '.rds'
-#                )
-#            )
-#        )
-#    },
-#    SaveData = function(lWorkflow, lConfig) {
-#        saveRDS(
-#            lWorkflow$lResult,
-#            file.path(
-#                'data',
-#                lWorkflow$Type,
-#                paste0(
-#                    lWorkflow$ID,
-#                    '.rds'
-#                )
-#            )
-#        )
-#    }
-#)
-
 lRawData <- list(
-    dm = readRDS('data/0_raw/dm.rds'),
-    ds = readRDS('data/0_raw/ds.rds'),
-    lb = readRDS('data/0_raw/lb.rds'),
-    ae = readRDS('data/0_raw/ae.rds')
+    dm = readRDS('data/SDTM/dm.rds'),
+    ds = readRDS('data/SDTM/ds.rds'),
+    lb = readRDS('data/SDTM/lb.rds'),
+    ae = readRDS('data/SDTM/ae.rds')
 )
 
 # 1. Mapped data
@@ -57,18 +27,6 @@ lMappingWorkflows <- gsm::MakeWorkflowList(
 lMappedData <- gsm::RunWorkflows(
     lMappingWorkflows,
     lRawData
-) %T>% iwalk(
-    ~ saveRDS(
-        .x,
-        file.path(
-            'data',
-            'Mapped',
-            paste0(
-                .y,
-                '.rds'
-            )
-        )
-    )
 )
 
 # 2. Analysis Data
@@ -82,18 +40,6 @@ lAnalysisWorkflows <- gsm::MakeWorkflowList(
 lAnalysisData <- gsm::RunWorkflows(
     lAnalysisWorkflows,
     lMappedData
-) %T>% iwalk(
-    ~ saveRDS(
-        .x,
-        file.path(
-            'data',
-            'Analysis',
-            paste0(
-                .y,
-                '.rds'
-            )
-        )
-    )
 )
 
 # 3. Reporting data
@@ -111,18 +57,6 @@ lReportingData <- gsm::RunWorkflows(
         list(
             lAnalyzed = lAnalysisData,
             lWorkflows = lAnalysisWorkflows
-        )
-    )
-) %T>% iwalk(
-    ~ saveRDS(
-        .x,
-        file.path(
-            'data',
-            'Reporting',
-            paste0(
-                .y,
-                '.rds'
-            )
         )
     )
 )
