@@ -4,7 +4,9 @@ meta:
   Description: Demographics 
   Priority: 1
 spec: 
-  dm:
+  SDTM_DM:
+    STUDYID:
+      type: character
     SITEID:
       type: character
     USUBJID:
@@ -17,12 +19,13 @@ spec:
       type: character
 steps:
   # Calculate participant-level time on study and remove participants who failed screening.
-  - output: mapped_dm
+  - output: Mapped_DM
     name: RunQuery
     params:
-      df: dm
+      df: SDTM_DM
       strQuery: |
         SELECT *,
+          CAST(RFSTDTC as date) as firstparticipantdate,
           DATEDIFF(
             'day',
             CAST(RFSTDTC as date),

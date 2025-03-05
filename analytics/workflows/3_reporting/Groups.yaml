@@ -4,7 +4,7 @@ meta:
   Description: Study and Site Metadata
   Priority: 1
 spec:
-  Mapped_STUDY:
+  Mapped_TS:
     _all:
       required:  true
   Mapped_SITE:
@@ -15,6 +15,6 @@ steps:
   - output: Reporting_Groups
     name: bind_rows
     params:
-      Study: Mapped_STUDY
+      Study: Mapped_TS
       Site: Mapped_SITE
 

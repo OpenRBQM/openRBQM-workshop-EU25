@@ -4,16 +4,16 @@ meta:
   Description: Labs
   Priority: 1
 spec: 
-  lb:
+  SDTM_LB:
     USUBJID:
       type: character
     LBNRIND:
       type: character
 steps:
-  - output: mapped_lb
+  - output: Mapped_LB
     name: RunQuery
     params:
-      df: lb
+      df: SDTM_LB
       strQuery: |
         SELECT *
         FROM df

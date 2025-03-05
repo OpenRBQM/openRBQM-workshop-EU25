@@ -17,7 +17,7 @@ spec:
     USUBJID:
       type: character
   Mapped_DM:
-    SUBJID:
+    USUBJID:
       type: character
     SITEID:
       type: character

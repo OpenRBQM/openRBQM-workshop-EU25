@@ -13,11 +13,25 @@ library(gsm.reporting)
 # 0. Input data
 # ----
 
-lRawData <- list(
-    dm = readRDS('data/SDTM/dm.rds'),
-    ds = readRDS('data/SDTM/ds.rds'),
-    lb = readRDS('data/SDTM/lb.rds'),
-    ae = readRDS('data/SDTM/ae.rds')
+# Create a data specification from the data mapping workflows.
+lDataSpec <- CombineSpecs(
+    gsm::MakeWorkflowList(
+        strPath = 'workflows/1_mappings',
+        strPackage = NULL
+    )
+)
+
+# Ingest each data domain and apply its data specification.
+lRawData <- Ingest(
+    list(
+        SDTM_TS = readRDS('data/SDTM/ts.rds'),
+        SDTM_DM = readRDS('data/SDTM/dm.rds'),
+        SDTM_DS = readRDS('data/SDTM/ds.rds'),
+        SDTM_LB = readRDS('data/SDTM/lb.rds'),
+        SDTM_AE = readRDS('data/SDTM/ae.rds')
+    ),
+    lDataSpec,
+    'SDTM'
 )
 
 # 1. Mapped data

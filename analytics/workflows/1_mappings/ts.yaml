@@ -1,0 +1,69 @@
+meta:
+  Type: Mapped
+  ID: TS
+  Description: Study Metadata 
+  Priority: 2
+spec:
+  SDTM_TS:
+    GroupID:
+      type: character
+      source_col: STUDYID
+    Param:
+      type: character
+      source_col: TSPARM
+    Value:
+      type: character
+      source_col: TSVAL
+  Mapped_DM:
+    STUDYID:
+      type: character
+    USUBJID:
+      type: character
+    timeonstudy:
+      type: numeric
+steps:
+  # Select study attributes.
+  - output: TS_Subset
+    name: gsm::RunQuery
+    params:
+      df: SDTM_TS
+      strQuery: |
+        SELECT 'Study' as GroupLevel, *
+        FROM df
+        WHERE Param IN (
+          'Trial Title',
+          'Trial Phase Classification',
+          'Trial Indication',
+          'Investigational Therapy or Treatment',
+          'Planned Number of Subjects'
+        )
+
+  # Count the number of participants in study.
+  - output: ParticipantCounts
+    name: RunQuery
+    params:
+      df: Mapped_DM
+      strQuery: |
+        SELECT
+          STUDYID as GroupID,
+          'CDISC: The Pilot' as nickname,
+          COUNT(DISTINCT USUBJID) as ParticipantCount,
+          COUNT(DISTINCT SITEID) as SiteCount,
+          COUNT(DISTINCT SITEID) as num_plan_sites
+        FROM df
+        GROUP BY STUDYID
+
+  # Transpose study metadata to one row per attribute.
+  - output: ParticipantCountsTransposed
+    name: MakeLongMeta
+    params:
+      data: ParticipantCounts
+      strGroupLevel: "Study"
+
+  # Combine study metadata with participant counts.
+  - output: Mapped_TS
+    name: dplyr::bind_rows
+    params:
+      TS_Subset: TS_Subset
+      ParticipantCountTransposed: ParticipantCountsTransposed
+

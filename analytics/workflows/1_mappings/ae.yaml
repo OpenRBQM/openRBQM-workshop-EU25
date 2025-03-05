@@ -4,17 +4,36 @@ meta:
   Description: Adverse Events 
   Priority: 1
 spec: 
-  ae:
+  SDTM_AE:
     USUBJID:
+      type: character
+    AESTDY:
+      type: character
+    AEENDY:
+      type: character
+    AESEQ:
+      type: character
+    AEDECOD:
+      type: character
+    AEBODSYS:
       type: character
     AESER:
       type: character
+    AESEV:
+      type: character
 steps:
-  - output: mapped_ae
+  - output: Mapped_AE
     name: RunQuery
     params:
-      df: ae
+      df: SDTM_AE
       strQuery: |
-        SELECT *
+        SELECT *,
+          # Add columns required by {gsm.ae} plugin.
+          AESTDY as aest_dy,
+          AEENDY as aeen_dy,
+          AEDECOD as mdrpt_nsv,
+          AEBODSYS as mdrsoc_nsv,
+          AESER as aeser,
+          AESEV as aetoxgr
         FROM df
 

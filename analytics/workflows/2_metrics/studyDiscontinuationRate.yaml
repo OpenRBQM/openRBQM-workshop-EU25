@@ -19,7 +19,7 @@ spec:
     DSDECOD:
       type: character
   Mapped_DM:
-    SUBJID:
+    USUBJID:
       type: character
     SITEID:
       type: character

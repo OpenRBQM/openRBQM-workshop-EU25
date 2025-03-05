@@ -7,7 +7,7 @@ spec:
   Mapped_DM:
     SITEID:
       type: character
-    SUBJID:
+    USUBJID:
       type: character
     timeonstudy:
       type: numeric
@@ -21,7 +21,7 @@ steps:
         SELECT
           SITEID as GroupID,
           'Site ' || SITEID as InvestigatorLastName,
-          COUNT(DISTINCT SUBJID) as ParticipantCount
+          COUNT(DISTINCT USUBJID) as ParticipantCount
         FROM df
         GROUP BY SITEID
 
