@@ -4,6 +4,7 @@ library(gsm)
 library(gsm.mapping)
 library(gsm.kri)
 library(gsm.reporting)
+library(magrittr)
 source('R/SaveData.R')
 
 # 0. Input data
