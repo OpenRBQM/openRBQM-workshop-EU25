@@ -1,10 +1,14 @@
 # TODO:
+# - 
 # - tweak data to introduce greater outliers
 # - add explanatory comments to script and to workflows
 
 library(purrr)
 library(dplyr)
 library(gsm)
+library(gsm.mapping)
+library(gsm.kri)
+library(gsm.reporting)
 
 # 0. Input data
 # ----
@@ -69,7 +73,7 @@ lModuleWorkflows <- gsm::MakeWorkflowList(
     strPackage = NULL
 )
 
-RunWorkflows(
+gsm::RunWorkflows(
     lModuleWorkflows,
     lReportingData
 )
