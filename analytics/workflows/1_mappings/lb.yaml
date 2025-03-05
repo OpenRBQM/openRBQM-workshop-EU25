@@ -15,7 +15,8 @@ steps:
     params:
       df: SDTM_LB
       strQuery: |
-        SELECT *
+        SELECT *,
+          SUBSTR(USUBJID, 4, 3) as SITEID
         FROM df
         WHERE LBNRIND != ''
 

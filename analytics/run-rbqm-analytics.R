@@ -1,14 +1,10 @@
-# TODO:
-# - 
-# - tweak data to introduce greater outliers
-# - add explanatory comments to script and to workflows
-
 library(purrr)
 library(dplyr)
 library(gsm)
 library(gsm.mapping)
 library(gsm.kri)
 library(gsm.reporting)
+source('R/SaveData.R')
 
 # 0. Input data
 # ----
@@ -42,10 +38,9 @@ lMappingWorkflows <- gsm::MakeWorkflowList(
     strPackage = NULL
 )
 
-lMappedData <- gsm::RunWorkflows(
-    lMappingWorkflows,
-    lRawData
-)
+lMappedData <- lMappingWorkflows %>%
+    gsm::RunWorkflows(lRawData) %T>%
+    SaveData()
 
 # 2. Analysis Data
 # ----
@@ -55,10 +50,9 @@ lAnalysisWorkflows <- gsm::MakeWorkflowList(
     strPackage = NULL
 )
 
-lAnalysisData <- gsm::RunWorkflows(
-    lAnalysisWorkflows,
-    lMappedData
-)
+lAnalysisData <- lAnalysisWorkflows %>%
+    gsm::RunWorkflows(lMappedData) %T>%
+    SaveData()
 
 # 3. Reporting data
 # ----
@@ -68,16 +62,18 @@ lReportingWorkflows <- gsm::MakeWorkflowList(
     strPackage = NULL
 )
 
-lReportingData <- gsm::RunWorkflows(
-    lReportingWorkflows,
-    c(
-        lMappedData,
-        list(
-            lAnalysisWorkflows = lAnalysisWorkflows,
-            lAnalysisData = lAnalysisData
+lReportingData <- lReportingWorkflows %>%
+    gsm::RunWorkflows(
+        # TODO: explain why this data object is so complicated
+        c(
+            lMappedData,
+            list(
+                lAnalysisWorkflows = lAnalysisWorkflows,
+                lAnalysisData = lAnalysisData
+            )
         )
-    )
-)
+    ) %T>%
+    SaveData()
 
 # 4. Output
 # ----
@@ -87,6 +83,7 @@ lModuleWorkflows <- gsm::MakeWorkflowList(
     strPackage = NULL
 )
 
+# TODO: figure out why report is bombing on `Widget_GroupOverview`
 gsm::RunWorkflows(
     lModuleWorkflows,
     lReportingData

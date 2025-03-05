@@ -55,6 +55,10 @@ steps:
       dfGroups: Reporting_Groups
       dfBounds: Reporting_Bounds
       dfMetrics: Reporting_Metrics_Site
+  - output: strOutputDir
+    name: normalizePath
+    params:
+      path: 'outputs'
   - output: lReport
     name: Report_KRI
     params:
@@ -62,4 +66,5 @@ steps:
       dfResults: Reporting_Results_Site
       dfGroups: Reporting_Groups
       dfMetrics: Reporting_Metrics_Site
+      strOutputDir: strOutputDir
 

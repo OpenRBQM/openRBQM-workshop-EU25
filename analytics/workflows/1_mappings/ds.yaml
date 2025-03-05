@@ -17,7 +17,8 @@ steps:
     params:
       df: SDTM_DS
       strQuery: |
-        SELECT *
+        SELECT *,
+          SUBSTR(USUBJID, 4, 3) as SITEID
         FROM df
         WHERE DSCAT = 'DISPOSITION EVENT'
 
