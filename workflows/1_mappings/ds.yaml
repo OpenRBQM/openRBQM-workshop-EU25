@@ -1,0 +1,24 @@
+meta:
+  Type: Mapped
+  ID: DS
+  Description: Disposition
+  Priority: 1
+spec: 
+  SDTM_DS:
+    USUBJID:
+      type: character
+    DSCAT:
+      type: character
+    DSDECOD:
+      type: character
+steps:
+  - output: Mapped_DS
+    name: RunQuery
+    params:
+      df: SDTM_DS
+      strQuery: |
+        SELECT *,
+          SUBSTR(USUBJID, 4, 3) as SITEID
+        FROM df
+        WHERE DSCAT = 'DISPOSITION EVENT'
+

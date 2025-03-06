@@ -1,0 +1,20 @@
+meta:
+  Type: Reporting
+  ID: Groups
+  Description: Study and Site Metadata
+  Priority: 1
+spec:
+  Mapped_TS:
+    _all:
+      required:  true
+  Mapped_SITE:
+    _all:
+      required:  true
+steps:
+  # Combine study and site metadata.
+  - output: Reporting_Groups
+    name: bind_rows
+    params:
+      Study: Mapped_TS
+      Site: Mapped_SITE
+

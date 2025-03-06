@@ -1,0 +1,36 @@
+meta:
+  Type: Mapped
+  ID: DM
+  Description: Demographics 
+  Priority: 1
+spec: 
+  SDTM_DM:
+    STUDYID:
+      type: character
+    SITEID:
+      type: character
+    USUBJID:
+      type: character
+    ARM:
+      type: character
+    RFSTDTC:
+      type: character
+    RFENDTC:
+      type: character
+steps:
+  # Calculate participant-level time on study and remove participants who failed screening.
+  - output: Mapped_DM
+    name: RunQuery
+    params:
+      df: SDTM_DM
+      strQuery: |
+        SELECT *,
+          CAST(RFSTDTC as date) as firstparticipantdate,
+          DATEDIFF(
+            'day',
+            CAST(RFSTDTC as date),
+            CAST(RFENDTC as date)
+          ) AS timeonstudy
+        FROM df
+        WHERE ARM != 'Screen Failure'
+

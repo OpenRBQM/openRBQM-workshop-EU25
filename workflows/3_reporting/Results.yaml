@@ -1,0 +1,14 @@
+meta:
+  Type: Reporting
+  ID: Results
+  Description: Analysis Results
+  Priority: 1
+steps:
+  # Stack all analysis results data into a single data frame.
+  - output: Results_Summary
+    name: BindResults
+    params:
+      lAnalysis: lAnalysisData
+      strName: "Analysis_Summary"
+      strStudyID: CDISCPILOT01
+

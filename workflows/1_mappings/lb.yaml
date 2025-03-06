@@ -1,0 +1,22 @@
+meta:
+  Type: Mapped
+  ID: LB
+  Description: Labs
+  Priority: 1
+spec: 
+  SDTM_LB:
+    USUBJID:
+      type: character
+    LBNRIND:
+      type: character
+steps:
+  - output: Mapped_LB
+    name: RunQuery
+    params:
+      df: SDTM_LB
+      strQuery: |
+        SELECT *,
+          SUBSTR(USUBJID, 4, 3) as SITEID
+        FROM df
+        WHERE LBNRIND != ''
+
