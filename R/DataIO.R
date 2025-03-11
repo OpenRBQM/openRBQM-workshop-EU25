@@ -1,4 +1,4 @@
-SaveData <- function(lData) {
+SaveData <- function(lData, root = here::here()) {
   iwalk(
     lData,
     function(dfData, strDomain) {
@@ -8,6 +8,7 @@ SaveData <- function(lData) {
       saveRDS(
         dfData,
         file.path(
+          root,
           'data',
           strLayerName,
           paste0(strDomainName, '.rds')
@@ -17,14 +18,15 @@ SaveData <- function(lData) {
   )
 }
 
-ReadData <- function(strLayer, strDomain) {
-  fs::path("data", strLayer, strDomain, ext = "rds") %>%
+ReadData <- function(strLayer, strDomain, root = here::here()) {
+  fs::path(root, "data", strLayer, strDomain, ext = "rds") %>%
     readRDS() %>%
     dplyr::as_tibble()
 }
 
-ReadAnalysisData <- function() {
-  fs::dir_ls("data/Analysis") %>%
+ReadAnalysisData <- function(root = here::here()) {
+  fs::path(root, "data", "Analysis") %>%
+  fs::dir_ls() %>%
     purrr::map(function(rdsFile) {
       metricName <- fs::path_file(rdsFile) %>%
         fs::path_ext_remove()

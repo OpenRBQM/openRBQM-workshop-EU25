@@ -1,8 +1,10 @@
+# Launch the ShinyApp (Do not remove this comment)
 library(gsm.app)
 library(fs)
 library(purrr)
 library(dplyr)
-source("R/DataIO.R")
+library(here)
+source(here::here("R/DataIO.R"))
 
 # library(gsm.ae)
 dfAnalysisInput <- ReadAnalysisData()
