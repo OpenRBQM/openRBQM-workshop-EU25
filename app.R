@@ -2,7 +2,7 @@ library(gsm.app)
 library(fs)
 library(purrr)
 library(dplyr)
-source('R/DataIO.R')
+source("R/DataIO.R")
 
 # library(gsm.ae)
 dfAnalysisInput <- ReadAnalysisData()
@@ -13,21 +13,22 @@ dfMetrics <- ReadData("Reporting", "Metrics")
 dfResults <- ReadData("Reporting", "Results")
 
 fetchData <- function(strDomain, strSiteID = NULL, strSubjectID = NULL) {
-  strDomain <- switch(strDomain, SUBJ = 'DM', STUDCOMP = 'DS', strDomain)
   # Load data.
-  dfDomain <- ReadData("Mapped", strDomain) %>%
-    mutate(
-      SubjectID = USUBJID
+  dfDomain <- ReadData("Mapped", strDomain)
+
+  dfDomain <- dfDomain %>%
+    dplyr::rename(
+      "SubjectID" = "USUBJID"
     )
 
   # Subset on site ID, if given.
-  if (!is.null(strSiteID)) {
+  if (!is.null(strSiteID) && "SITEID" %in% colnames(dfDomain)) {
     dfDomain <- dplyr::filter(dfDomain, .data$SITEID == strSiteID)
   }
 
   # Subset on subject ID, if given.
-  if (!is.null(strSubjectID)) {
-    dfDomain <- dplyr::filter(dfDomain, .data$USUBJID == strSubjectID)
+  if (!is.null(strSubjectID) && "SubjectID" %in% colnames(dfDomain)) {
+    dfDomain <- dplyr::filter(dfDomain, .data$SubjectID == strSubjectID)
   }
 
   return(dfDomain)
@@ -40,12 +41,11 @@ run_gsm_app(
   dfMetrics,
   dfResults,
   fetchData,
-  # TODO: figure out how to add new domains
   chrDomains = c(
-    'SUBJ',
-    'STUDCOMP',
-    'LB',
-    'AE'
+    AE = "Adverse Events",
+    LB = "Lab",
+    DM = "Subject Metadata",
+    DS = "Study Completion"
   ) #,
   # lPlugins = list(pluginAE())
 )
