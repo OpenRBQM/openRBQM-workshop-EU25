@@ -1,5 +1,6 @@
-# Launch the ShinyApp (Do not remove this comment)
+# Launch the ShinyApp (Do not remove this comment )
 library(gsm.app)
+library(gsm.ae) # load_all('../gsm.ae')
 library(fs)
 library(purrr)
 library(dplyr)
@@ -15,6 +16,9 @@ dfResults <- ReadData("Reporting", "Results")
 
 # Tell the app how to fetch domain data ----
 fetchData <- function(strDomain, strSiteID = NULL, strSubjectID = NULL) {
+  if (strDomain == 'SUBJ')
+    strDomain <- 'DM'
+
   # Load data.
   dfDomain <- ReadData("Mapped", strDomain)
 
