@@ -6,14 +6,14 @@ library(dplyr)
 library(here)
 source(here::here("R/DataIO.R"))
 
-# library(gsm.ae)
+# (re)Load Workshop Data ----
 dfAnalysisInput <- ReadAnalysisData()
-
 dfBounds <- ReadData("Reporting", "Bounds")
 dfGroups <- ReadData("Reporting", "Groups")
 dfMetrics <- ReadData("Reporting", "Metrics")
 dfResults <- ReadData("Reporting", "Results")
 
+# Tell the app how to fetch domain data ----
 fetchData <- function(strDomain, strSiteID = NULL, strSubjectID = NULL) {
   # Load data.
   dfDomain <- ReadData("Mapped", strDomain)
@@ -48,6 +48,7 @@ run_gsm_app(
     LB = "Lab",
     DM = "Subject Metadata",
     DS = "Study Completion"
-  ) #,
-  # lPlugins = list(pluginAE())
+  ),
+  strTitle = "Workshop Data",
+  strFaviconColor = ColorScheme("green")
 )
