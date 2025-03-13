@@ -1,5 +1,6 @@
 # Launch the ShinyApp
 library(gsm.app)
+library(gsm.ae)
 library(fs)
 library(purrr)
 library(dplyr)
@@ -15,6 +16,11 @@ dfResults <- ReadData("Reporting", "Results")
 
 # Tell the app how to fetch domain data ----
 fetchData <- function(strDomain, strSiteID = NULL, strSubjectID = NULL) {
+  # gsm.ae plugin has a requirement for a "SUBJ" domain
+  if (strDomain == "SUBJ") {
+    strDomain <- "DM"
+  }
+
   # Load data.
   dfDomain <- ReadData("Mapped", strDomain)
 
@@ -46,9 +52,9 @@ run_gsm_app(
   chrDomains = c(
     AE = "Adverse Events",
     LB = "Lab",
-    DM = "Subject Metadata",
+    SUBJ = "Subject Metadata",
     DS = "Study Completion"
   ),
   strTitle = "Workshop Data",
-  strFaviconColor = ColorScheme("green")
+  strFaviconColor = "purple"
 )
