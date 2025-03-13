@@ -65,12 +65,11 @@ lReportingWorkflows <- gsm.core::MakeWorkflowList(
 
 lReportingData <- lReportingWorkflows %>%
     gsm.core::RunWorkflows(
-        # TODO: explain why this data object is so complicated
         c(
-            lMappedData,
+            lMappedData, # mapped CTMS data
             list(
-                lAnalysisWorkflows = lAnalysisWorkflows,
-                lAnalysisData = lAnalysisData
+                lAnalysisWorkflows = lAnalysisWorkflows, # metric metadata
+                lAnalysisData = lAnalysisData # analysis data
             )
         )
     ) %T>%
@@ -84,7 +83,6 @@ lModuleWorkflows <- gsm.core::MakeWorkflowList(
     strPackage = NULL
 )
 
-# TODO: figure out why report is bombing on `Widget_GroupOverview`
 gsm.core::RunWorkflows(
     lModuleWorkflows,
     lReportingData
