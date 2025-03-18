@@ -1,7 +1,11 @@
-![image](https://github.com/user-attachments/assets/6378e6c5-3a4f-49a1-a0e0-37ce0a552d4d)# PhuseConnect25
+# Overview
 
 This repo contains materials for the OpenRBQM Workshop run at Phuse Connect 2025 in Orlando, Fla. 
 
+- [OpenRBQM Home Page](https://advance.hub.phuse.global/wiki/spaces/WEL/pages/26811224/OpenRBQM+Pre-Competitive+Collaboration+on+Open-Source+Software+for+RBQM)
+- [Workshop Posit Cloud Project](https://posit.cloud/spaces/627310/join?access_code=Ht_i118WHp_wjQ9XGwi-b7fb1bs0y1mbbVO3JyME)
+- [Workshop Slides]() (Coming Soon)
+  
 # Posit Cloud Setup
 
 Workshop attendees can run examples in Posit Cloud by following these steps: 
