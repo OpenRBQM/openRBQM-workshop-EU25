@@ -26,7 +26,8 @@ fetchData <- function(strDomain, strSiteID = NULL, strSubjectID = NULL) {
 
   dfDomain <- dfDomain %>%
     dplyr::rename(
-      "SubjectID" = "USUBJID"
+      "SubjectID" = "USUBJID",
+      "GroupID" = "SITEID"
     )
 
   # Subset on site ID, if given.
