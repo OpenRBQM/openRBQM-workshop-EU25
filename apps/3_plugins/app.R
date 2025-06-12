@@ -1,4 +1,5 @@
 # Launch the ShinyApp
+# devtools::install_github('OpenRBQM/gsm.ae')
 library(gsm.app)
 library(gsm.ae)
 library(fs)

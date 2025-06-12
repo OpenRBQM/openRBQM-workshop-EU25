@@ -1,11 +1,11 @@
 meta:
   Type: Analysis
-  ID: adverseEventReportingRate
-  Description: Adverse Event Rate KRI
+  ID: seriousAdverseEventReportingRate
+  Description: Serious Adverse Event Reporting Rate KRI
   GroupLevel: Site
-  Abbreviation: AE
-  Metric: Adverse Event Rate
-  Numerator: Adverse Events
+  Abbreviation: SAE
+  Metric: Serious Adverse Event Reporting Rate
+  Numerator: Serious Adverse Events
   Denominator: Days on Study
   Model: Normal Approximation
   Score: Adjusted Z-Score
@@ -15,6 +15,8 @@ meta:
 spec:
   Mapped_AE:
     USUBJID:
+      type: character
+    AESER:
       type: character
   Mapped_DM:
     USUBJID:
@@ -28,11 +30,16 @@ steps:
     name: ParseThreshold
     params:
       strThreshold: Threshold
+  - output: Serious_AEs
+    name: RunQuery
+    params:
+      df: Mapped_AE
+      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"
   - output: Analysis_Input
     name: Input_Rate
     params:
       dfSubjects: Mapped_DM
-      dfNumerator: Mapped_AE
+      dfNumerator: Serious_AEs
       dfDenominator: Mapped_DM
       strSubjectCol: USUBJID
       strGroupCol: SITEID
@@ -68,4 +75,3 @@ steps:
       Analysis_Analyzed: Analysis_Analyzed
       Analysis_Flagged: Analysis_Flagged
       Analysis_Summary: Analysis_Summary
-

@@ -1,3 +1,11 @@
+# devtools::install_github('gilead-biostats/gsm.core')
+# devtools::install_github('gilead-biostats/gsm.mapping')
+# devtools::install_github('gilead-biostats/gsm.kri')
+# devtools::install_github('gilead-biostats/gsm.reporting')
+# devtools::install_github('gilead-biostats/gsm.app')
+# devtools::install_github('openrbqm/gsm.ae')
+
+
 library(purrr)
 library(dplyr)
 library(gsm.core)
