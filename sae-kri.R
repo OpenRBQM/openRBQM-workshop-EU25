@@ -1,3 +1,13 @@
+#Load libraries
+library(purrr)
+library(dplyr)
+library(gsm.core)
+library(gsm.mapping)
+library(gsm.kri)
+library(gsm.reporting)
+library(magrittr)
+library(here)
+source('R/DataIO.R')
 # Load data input/output helpers
 source('R/DataIO.R')
 
