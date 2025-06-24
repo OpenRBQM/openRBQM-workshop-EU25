@@ -42,7 +42,7 @@ table(dfSummary$Flag) # Tabulate the flag results
 
 # Alternative pipeline using magrittr %>%
 # Uncomment to use the pipe workflow
-# library(magrittr)
+
 # dfSummary_pipe <- gsm.core::Input_Rate(
 #   dfSubjects = gsm.core::lSource$Raw_SUBJ,
 #   dfNumerator = gsm.core::lSource$Raw_AE %>% dplyr::filter(aeser == "Y"),
