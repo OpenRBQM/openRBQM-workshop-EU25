@@ -1,4 +1,5 @@
 # Launch the ShinyApp
+# devtools::install_github('OpenRBQM/gsm.ae')
 library(gsm.app)
 library(gsm.ae)
 library(fs)
@@ -15,7 +16,10 @@ dfMetrics <- ReadData("Reporting", "Metrics")
 dfResults <- ReadData("Reporting", "Results")
 
 # Tell the app how to fetch domain data ----
-fetchData <- function(strDomain, strSiteID = NULL, strSubjectID = NULL) {
+fetchData <- function(strDomain,
+                      strGroupID = NULL,
+                      strGroupLevel = "Site",
+                      strSubjectID = NULL) {
   # gsm.ae plugin has a requirement for a "SUBJ" domain
   if (strDomain == "SUBJ") {
     strDomain <- "DM"
@@ -31,8 +35,8 @@ fetchData <- function(strDomain, strSiteID = NULL, strSubjectID = NULL) {
     )
 
   # Subset on site ID, if given.
-  if (!is.null(strSiteID) && "SITEID" %in% colnames(dfDomain)) {
-    dfDomain <- dplyr::filter(dfDomain, .data$SITEID == strSiteID)
+  if (!is.null(strGroupID) && "GroupID" %in% colnames(dfDomain)) {
+    dfDomain <- dplyr::filter(dfDomain, .data$GroupID == strGroupID)
   }
 
   # Subset on subject ID, if given.

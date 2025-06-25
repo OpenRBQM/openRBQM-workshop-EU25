@@ -11,7 +11,7 @@ meta:
   Score: Adjusted Z-Score
   AnalysisType: rate
   Threshold: -2,-1,2,3
-  nMinDenominator: 30
+  nAccrualThreshold: 30
 spec:
   Mapped_LB:
     USUBJID:
@@ -63,11 +63,11 @@ steps:
     params:
       dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
+      nAccrualThreshold: nAccrualThreshold
   - output: Analysis_Summary
     name: Summarize
     params:
       dfFlagged: Analysis_Flagged
-      nMinDenominator: nMinDenominator
   - output: lAnalysis
     name: list
     params:
