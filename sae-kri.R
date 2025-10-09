@@ -7,9 +7,7 @@ library(gsm.kri)
 library(gsm.reporting)
 library(magrittr)
 library(here)
-source('R/DataIO.R')
-# Load data input/output helpers
-source('R/DataIO.R')
+
 
 # Calculate SAE reporting rate using gsm.core functions
 dfInput <- gsm.core::Input_Rate(
@@ -40,22 +38,26 @@ dfSummary <- gsm.core::Summarize(dfFlagged)
 
 table(dfSummary$Flag) # Tabulate the flag results
 
-# Alternative pipeline using magrittr %>%
-# Uncomment to use the pipe workflow
+# 6. Visualize the results with scatter plots
+gsm.kri::Visualize_Scatter(
+  dfFlagged,
+  dfBounds = NULL,
+  strGroupLabel = "GroupLevel",
+  strUnit = "Visits"
+)
 
-# dfSummary_pipe <- gsm.core::Input_Rate(
-#   dfSubjects = gsm.core::lSource$Raw_SUBJ,
-#   dfNumerator = gsm.core::lSource$Raw_AE %>% dplyr::filter(aeser == "Y"),
-#   dfDenominator = gsm.core::lSource$Raw_SUBJ,
-#   strSubjectCol = "subjid",
-#   strGroupCol = "invid",
-#   strNumeratorMethod = "Count",
-#   strDenominatorMethod = "Sum",
-#   strDenominatorCol = "timeonstudy"
-# ) %>%
-#   gsm.core::Transform_Rate() %>%
-#   gsm.core::Analyze_NormalApprox() %>%
-#   gsm.core::Flag(vThreshold = c(-3, -2, 2, 3)) %>%
-#   gsm.core::Summarize()
-#
-# table(dfSummary_pipe$Flag)
+# 7. Predict boundaries
+dfBounds <- gsm.core::Analyze_NormalApprox_PredictBounds(
+  dfTransformed,
+  strType = "rate",
+  vThreshold = c(-3, -2, 2, 3)
+)
+
+# 8. Visualize the results with predicted boundaries
+gsm.kri::Visualize_Scatter(
+  dfFlagged,
+  dfBounds = dfBounds,
+  strGroupLabel = "GroupLevel",
+  strUnit = "Visits"
+)
+
