@@ -9,6 +9,6 @@ steps:
     name: BindResults
     params:
       lAnalysis: lAnalysisData
-      strName: "Analysis_Summary"
+      strName: "Analysis_Flagged"
       strStudyID: CDISCPILOT01
 

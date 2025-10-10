@@ -8,9 +8,9 @@ meta:
   Denominator: Visits
   Model: bootstrap-simaerep
   Score: Over/Under-Reporting Probability
-  ExpectedNumerator: Expected AEs
+  ExpectedNumerator: (Reported - Expected) AEs
   AnalysisType: identity
-  Threshold: -0.99, -0.95, 0.95, 0.99
+  Threshold: -0.95, -0.75, 0.75, 0.95
   nMinDenominator: 1
 spec:
   Mapped_AE:
@@ -74,6 +74,13 @@ steps:
     name: Analyze_Simaerep
     params:
       dfInput: Analysis_Input
+  - output: Analysis_Multiplicity_Adjusted
+    name: RunQuery
+    params:
+      df: Analysis_Analyzed
+      strQuery: |
+        SELECT GroupID, GroupLevel, Numerator, Denominator, Metric, ScoreMult AS Score, ExpectedNumerator
+        FROM df
   - output: vThreshold
     name: ParseThreshold
     params:
@@ -81,7 +88,7 @@ steps:
   - output: Analysis_Flagged
     name: Flag_Simaerep
     params:
-      dfAnalyzed: Analysis_Analyzed
+      dfAnalyzed: Analysis_Multiplicity_Adjusted
       vThreshold: vThreshold
   - output: Analysis_Summary
     name: gsm.core::Summarize

@@ -48,13 +48,46 @@ steps:
     params:
       df: Reporting_Metrics
       strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
-  - output: lCharts_Site
-    name: MakeCharts
+  - output: Reporting_Metrics_Site_Identity
+    name: gsm.core::RunQuery
+    params:
+      df: Reporting_Metrics_Site
+      strQuery: "SELECT * FROM df WHERE LOWER(AnalysisType) == 'identity'"
+  - output: Reporting_Metrics_Site_Rate
+    name: gsm.core::RunQuery
+    params:
+      df: Reporting_Metrics_Site
+      strQuery: "SELECT * FROM df WHERE LOWER(AnalysisType) == 'rate'"
+  - output: lCharts_Site_Identity
+    name: gsm.kri::MakeCharts
     params:
       dfResults: Reporting_Results_Site
+      dfMetrics: Reporting_Metrics_Site_Identity
+      dfGroups: Reporting_Groups
+      dfBounds: null
+      resultTooltipKeys:
+        - ExpectedNumerator
+        - Score
+        - Metric
+        - Numerator
+        - Denominator
+  - output: lCharts_Site_Rate
+    name: gsm.kri::MakeCharts
+    params:
+      dfResults: Reporting_Results_Site
+      dfMetrics: Reporting_Metrics_Site_Rate
       dfGroups: Reporting_Groups
       dfBounds: Reporting_Bounds
-      dfMetrics: Reporting_Metrics_Site
+      resultTooltipKeys:
+        - Score
+        - Metric
+        - Numerator
+        - Denominator
+  - output: lCharts_Site
+    name: BindLists
+    params:
+      a: lCharts_Site_Identity
+      b: lCharts_Site_Rate
   - output: strOutputDir
     name: normalizePath
     params:
