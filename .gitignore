@@ -6,3 +6,5 @@ data/Analysis/*.rds
 data/Mapped/*.rds
 data/Reporting/*.rds
 outputs/*.html
+~*.pptx
+.DS_Store

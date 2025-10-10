@@ -11,9 +11,13 @@ It is based on a [previous workshop](https://github.com/OpenRBQM/openRBQM-worksh
 
 # Relevant R Packages
 
-- [{gsm}](https://github.com/Gilead-BioStats/gsm.core)
 - [{ctas}](https://github.com/IMPALA-Consortium/ctas)
 - [{simaerep}](https://github.com/openpharma/simaerep/)
+- [{gsm.core}](https://github.com/Gilead-BioStats/gsm.core)
+- [{gsm.kri}](https://github.com/Gilead-BioStats/gsm.kri)
+- [{gsm.mapping}](https://github.com/Gilead-BioStats/gsm.mapping)
+- [{gsm.reporting}](https://github.com/Gilead-BioStats/gsm.reporting)
+- [{gsm.simaerep}](https://github.com/IMPALA-Consortium/gsm.simaerep)
 
 # Posit Cloud Setup
 
