@@ -1,0 +1,103 @@
+meta:
+  Type: Analysis
+  ID: adverseEventReportingSimaerep
+  GroupLevel: Site
+  Abbreviation: AE-Bootstrap
+  Metric: Adverse Event Rate - Simaerep
+  Numerator: Adverse Events
+  Denominator: Visits
+  Model: bootstrap-simaerep
+  Score: Over/Under-Reporting Probability
+  ExpectedNumerator: Expected AEs
+  AnalysisType: identity
+  Threshold: -0.99, -0.95, 0.95, 0.99
+  nMinDenominator: 1
+spec:
+  Mapped_AE:
+    USUBJID:
+      type: character
+    aest_dt:
+      type: Date
+  Mapped_DM:
+    USUBJID:
+      type: character
+    SITEID:
+      type: character
+    firstparticipantdate:
+      type: Date
+    lastparticipantdate:
+      type: Date  
+steps:
+  - output: AE_DM
+    name: dplyr::full_join
+    params:
+      "x": "Mapped_AE"
+      "y": "Mapped_DM"
+      "by": "USUBJID"
+  - output: DISTINCT_DAYS
+    name: RunQuery
+    params:
+      df: AE_DM
+      strQuery: |
+        SELECT DISTINCT
+          aest_dt - firstparticipantdate + 1 AS STUDYDAY
+        FROM df
+  - output: CROSS_JOIN_DAYS
+    name: dplyr::cross_join
+    params:
+      "x": Mapped_DM
+      "y": DISTINCT_DAYS
+  # simaerep requries visits and visit dates which does not have a separate SDTM domain.
+  # We approximate by using study days instead of real visit dates.
+  - output: APPROX_VISIT
+    name: RunQuery
+    params:
+      df: CROSS_JOIN_DAYS
+      strQuery: |
+        SELECT USUBJID,
+          firstparticipantdate + CAST(STUDYDAY - 1 AS INT) AS visitdt
+        FROM df
+        WHERE STUDYDAY <= lastparticipantdate - (firstparticipantdate + 1)
+  - output: Analysis_Input
+    name: Input_CumCount
+    params:
+      dfSubjects: Mapped_DM
+      dfNumerator: Mapped_AE
+      dfDenominator: APPROX_VISIT
+      strSubjectCol: USUBJID
+      strGroupCol: SITEID
+      strGroupLevel: Site
+      strNumeratorDateCol: aest_dt
+      strDenominatorDateCol: visitdt
+      strOrphanedMethod: filter
+  - output: SaveInput
+    name: saveRDS
+    params:
+      object: Analysis_Input
+      file: "analysisinput.rds"
+  - output: Analysis_Analyzed
+    name: Analyze_Simaerep
+    params:
+      dfInput: Analysis_Input
+  - output: vThreshold
+    name: ParseThreshold
+    params:
+      strThreshold: Threshold
+  - output: Analysis_Flagged
+    name: Flag_Simaerep
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - output: Analysis_Summary
+    name: gsm.core::Summarize
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - output: lAnalysis
+    name: list
+    params:
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary

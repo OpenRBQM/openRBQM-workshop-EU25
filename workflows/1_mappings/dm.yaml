@@ -26,6 +26,7 @@ steps:
       strQuery: |
         SELECT *,
           CAST(RFSTDTC as date) as firstparticipantdate,
+          CAST(RFENDTC as date) as lastparticipantdate,
           DATEDIFF(
             'day',
             CAST(RFSTDTC as date),

@@ -63,4 +63,5 @@ steps:
             ELSE NULL
           END AS aeen_dt
         FROM df
+        WHERE TRY_CAST(AESTDTC AS DATE) IS NOT NULL
 
