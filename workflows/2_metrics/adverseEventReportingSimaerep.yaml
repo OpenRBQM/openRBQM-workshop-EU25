@@ -70,11 +70,6 @@ steps:
       strNumeratorDateCol: aest_dt
       strDenominatorDateCol: visitdt
       strOrphanedMethod: filter
-  - output: SaveInput
-    name: saveRDS
-    params:
-      object: Analysis_Input
-      file: "analysisinput.rds"
   - output: Analysis_Analyzed
     name: Analyze_Simaerep
     params:
