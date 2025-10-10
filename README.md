@@ -34,8 +34,8 @@ Workshop attendees can run examples in Posit Cloud by following these steps:
 - 5 min - [{gsm}](https://github.com/Gilead-BioStats/gsm.core) modules and flagging methods Björn Koneswarakantha
 - 15 min - Hands on - Analytics - Lawrence Dennison-Hall & Mariia Lapaeva
 - 15 min - Hands on - Deep Dive - Björn Koneswarakantha
-- 10 min - Introduction to statistical data monitoring and clinical trial anomaly spotter - Frederik Colin
-- 20 min - Hands on - clinical trial anomaly spotter - Björn Koneswarakantha
+- 10 min - Introduction to statistical data monitoring and clinical trial anomaly spotter - Pekka Tiikkainen
+- 20 min - Hands on - clinical trial anomaly spotter - Pekka Tiikkainen
 - 10 min - Wrap-up and Buffer Time - Jeremy Howells
 
 
