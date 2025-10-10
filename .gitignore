@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+data/Analysis/*.rds
+data/Mapped/*.rds
+data/Reporting/*.rds
+outputs/*.html
