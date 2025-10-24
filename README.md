@@ -6,7 +6,7 @@ It is based on a [previous workshop](https://github.com/OpenRBQM/openRBQM-worksh
 
 - [OpenRBQM Home Page](https://advance.hub.phuse.global/wiki/spaces/WEL/pages/26811224/OpenRBQM+Pre-Competitive+Collaboration+on+Open-Source+Software+for+RBQM)
 - [IMPALA Home Page](https://impala-consortium.org/)
-- [Workshop Posit Cloud Project](https://posit.cloud/spaces/706914/content/all)
+- [Workshop Posit Cloud Project](https://posit.cloud/spaces/706914/join?access_code=a6p8f7RYbGdOlkQDOOZ5jPUqO6SzF9cuJTXrwuix)
 - [Workshop Slides](2025_PhuseUSConnect_OpenRBQMWorkshop.pptx)
 
 # Relevant R Packages
@@ -22,7 +22,7 @@ It is based on a [previous workshop](https://github.com/OpenRBQM/openRBQM-worksh
 # Posit Cloud Setup
 
 Workshop attendees can run examples in Posit Cloud by following these steps: 
-- Open [Posit Cloud Project](https://posit.cloud/spaces/706914/content/all) 
+- Open [Posit Cloud Project](https://posit.cloud/spaces/706914/join?access_code=a6p8f7RYbGdOlkQDOOZ5jPUqO6SzF9cuJTXrwuix) 
 - Log in/Create an Account
 - Click on the 'assignment' to make yourself a copy
 - Follow along with hands on exercises
