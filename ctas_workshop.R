@@ -4,8 +4,6 @@
 # Date: 2025-11-17
 #===============================================================================
 
-setwd("C:/Users/glutk/OneDrive - Bayer/Projects/Time line similarity/phuse_workshop")
-
 # Load required libraries
 library(ctas)
 library(tidyverse)
@@ -17,7 +15,7 @@ library(RColorBrewer)
 library(pharmaversesdtm)
 library(dbscan)
 
-source("ctas_workshop_functions.R")
+source("R/ctas_workshop_functions.R")
 
 # Set seed for reproducibility
 set.seed(42)
@@ -150,6 +148,7 @@ plot(pca_plot_716_hgb)
 # Compare 716's hemoglobin time series with the study average
 timeseries_plot_716_hgb <- create_site_timeseries_with_area("716", "ts_46_autogen_original")
 plot(timeseries_plot_716_hgb)
+
 
 
 
