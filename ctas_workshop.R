@@ -25,7 +25,8 @@ set.seed(42)
 #===============================================================================
 
 
-# Pull and wrange clinical trial data from the pharmaversesdtm package.
+# Pull demographics, labs, vital signs and ECG measurements from the pharmaversesdtm package
+# and wrangle them into a suitable format.
 input_data <- wrangle_input_data()
 
 data <- input_data[[1]]
@@ -148,6 +149,7 @@ plot(pca_plot_716_hgb)
 # Compare 716's hemoglobin time series with the study average
 timeseries_plot_716_hgb <- create_site_timeseries_with_area("716", "ts_46_autogen_original")
 plot(timeseries_plot_716_hgb)
+
 
 
 
