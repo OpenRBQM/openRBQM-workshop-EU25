@@ -7,7 +7,7 @@ It is based on a [previous workshop](https://github.com/OpenRBQM/openRBQM-worksh
 - [OpenRBQM Home Page](https://advance.hub.phuse.global/wiki/spaces/WEL/pages/26811224/OpenRBQM+Pre-Competitive+Collaboration+on+Open-Source+Software+for+RBQM)
 - [IMPALA Home Page](https://impala-consortium.org/)
 - [Workshop Posit Cloud Project](https://posit.cloud/spaces/706914/join?access_code=a6p8f7RYbGdOlkQDOOZ5jPUqO6SzF9cuJTXrwuix)
-- [Workshop Slides](2025_PhuseUSConnect_OpenRBQMWorkshop.pptx)
+- [Workshop Slides](OpenRBQMWorkshop.pptx)
 
 # Relevant R Packages
 
