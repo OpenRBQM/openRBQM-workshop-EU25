@@ -150,6 +150,10 @@ plot(pca_plot_716_hgb)
 timeseries_plot_716_hgb <- create_site_timeseries_with_area("716", "ts_46_autogen_original")
 plot(timeseries_plot_716_hgb)
 
+# EXERCISE ######
+# Site 713 has a strong anomaly signal for their Diastolic blood pressure measurements (timeseries_id = "ts_26_autogen_original").
+# Please use the functions create_site_feature_comparison and create_individual_timeseries_trellis to visualize the signal.
+# What do you think is the root cause here?
 
 
 
